@@ -1,1 +1,80 @@
+import random
+import time
+from graphics import Canvas
+
+CANVAS_WIDTH = 400
+CANVAS_HEIGHT = 400
+CIRCLE_RADIUS = 30
+ROUND_TIME = 2
+TOTAL_ROUNDS = 10
+
+def draw_circle(canvas, state):
+    if state["circle_id"] is not None:
+        canvas.delete(state["circle_id"])
+    x = random.randint(CIRCLE_RADIUS, CANVAS_WIDTH - CIRCLE_RADIUS)
+    y = random.randint(CIRCLE_RADIUS, CANVAS_HEIGHT - CIRCLE_RADIUS)
+    state["circle_center"] = (x, y)
+    state["circle_id"] = canvas.create_oval(
+        x - CIRCLE_RADIUS, y - CIRCLE_RADIUS,
+        x + CIRCLE_RADIUS, y + CIRCLE_RADIUS,
+        "red"
+    )
+
+def draw_score(canvas, state):
+    if state["score_text_id"] is not None:
+        canvas.delete(state["score_text_id"])
+    state["score_text_id"] = canvas.create_text(
+        10, 10,
+        text=f"Score: {state['score']}",
+        font="Arial",
+        font_size=20,
+        color="blue"
+    )
+
+def main():
+
+
+    canvas = Canvas(CANVAS_WIDTH, CANVAS_HEIGHT)
+    state = {
+        "score": 0,
+        "circle_id": None,
+        "score_text_id": None,
+        "circle_center": (0, 0)
+    }
+
+    draw_score(canvas, state)
+
+    for _ in range(TOTAL_ROUNDS):
+        draw_circle(canvas, state)
+        start_time = time.time()
+
+        while time.time() - start_time < ROUND_TIME:
+            clicks = canvas.get_new_mouse_clicks()
+            if clicks:
+                click = clicks[0]  # (x, y) tuple
+                x, y = click[0], click[1]
+
+                cx, cy = state["circle_center"]
+                if (x - cx) ** 2 + (y - cy) ** 2 <= CIRCLE_RADIUS ** 2:
+                    state["score"] += 1
+                    draw_score(canvas, state)
+                    break
+            time.sleep(0.01)
+
+        if state["circle_id"] is not None:
+            canvas.delete(state["circle_id"])
+
+    canvas.create_text(
+        CANVAS_WIDTH // 2,
+        CANVAS_HEIGHT // 2,
+        text=f"Game Over! Final Score: {state['score']}",
+        font="Arial",
+        font_size=24,
+        color="green",
+        anchor="center"
+    )
+
+
+if __name__ == "__main__":
+    main()
 
