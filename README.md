@@ -1,3 +1,9 @@
+<img width="412" height="409" alt="CatchCircleGame2" src="https://github.com/user-attachments/assets/a7adf033-c3a2-4285-97d7-7560b85014ce" />
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<img width="406" height="406" alt="CatchCircle" src="https://github.com/user-attachments/assets/7e5ea877-6179-4704-b8eb-3ee345d59a78" />
+
+
 **📚 Stanford Code in Place 2025 Projects**
 
 Welcome to my Stanford Code in Place (CIP) 2025 repository!
